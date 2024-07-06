@@ -1,0 +1,22 @@
+##script for Vivado dependency installation on Debian so it doesn't get stuck on the last step.
+
+#!/bin/bash
+
+# Exit on any error
+set -e
+
+# Update and upgrade system
+echo "Updating system..."
+sudo apt update && sudo apt upgrade -y
+
+# Install required dependencies
+echo "Installing required dependencies..."
+sudo apt install -y libtinfo5 libncurses5 libncurses5-dev libxrender1 libxrandr2 libfreetype6 libfontconfig1 build-essential tofrodos libglib2.0-dev libsm6 libxi6 libxext6
+
+# Ensure 32-bit architecture is enabled and install 32-bit libraries
+echo "Enabling 32-bit architecture and installing 32-bit libraries..."
+sudo dpkg --add-architecture i386
+sudo apt update
+sudo apt install -y libc6:i386 libncurses5:i386 libstdc++6:i386
+
+echo "All required dependencies for Vivado have been installed successfully!"
